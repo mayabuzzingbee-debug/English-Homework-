@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Question Types & Negatives | Food & Containers</title>
+<style>:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#243447;background:#f5f7fc}*{box-sizing:border-box}body{margin:0}.wrap{max-width:900px;margin:auto;padding:24px 16px 60px}.hero{background:linear-gradient(120deg,#244a80,#5a6fc0);color:white;padding:28px;border-radius:22px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:clamp(25px,5vw,38px)}.hero p{margin:0;line-height:1.5}.card{background:white;border:1px solid #e1e6ef;border-radius:17px;padding:20px;margin:15px 0;box-shadow:0 2px 9px #2434470a}.card h2{font-size:18px;margin:0 0 14px}.answers{display:grid;gap:9px}.answer{display:flex;align-items:center;gap:10px}.answer label{width:23px;color:#69778a;font-size:13px}.answer input{flex:1;min-width:0;border:1px solid #ccd6e6;border-radius:9px;padding:12px;font-size:16px;background:#fbfcff}.answer input:focus,#student:focus{outline:2px solid #728ce5;border-color:transparent}#student{border:1px solid #ccd6e6;border-radius:9px;padding:12px;font-size:16px;width:100%;max-width:420px}.note{color:#596779;font-size:14px;line-height:1.5}.actions{position:sticky;bottom:0;background:#f5f7fcf5;border-top:1px solid #dbe2ec;padding:12px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}button{border:0;border-radius:11px;padding:14px 20px;background:#2452a1;color:white;font-weight:700;font-size:16px;cursor:pointer}button:disabled{opacity:.55;cursor:wait}#status{font-size:14px;line-height:1.4}#status.error{color:#a22525}#status.ok{color:#18643d}.count{color:#50627a;font-size:14px}.small{font-size:12px;color:#65758a}@media(max-width:550px){.card{padding:15px}.hero{padding:22px}.answer{flex-direction:column;align-items:stretch;gap:4px}.answer input{padding:10px}}</style></head><body><main class="wrap">
+<header class="hero"><h1>❓ Questions & Negatives</h1><p>Food & Containers · Make a general question, a subject question, two special questions and a negative sentence.<br>Complete all five tasks under each sentence. Your teacher will read your answers.</p></header>
+<section class="card"><label for="student"><strong>Your name *</strong></label><p class="note">Write your first name and surname so your teacher can find your work.</p><input id="student" autocomplete="name" maxlength="80" placeholder="First name and surname" required><p class="note">Use the statement to write four questions and one negative sentence. For special questions, choose two different question words when possible.</p></section>
+<div id="tasks"></div>
+<section class="card"><strong>Before you submit</strong><p class="note">Your teacher will receive the exact text you wrote. This homework is not automatically marked. Please complete all five fields for each sentence.</p><label><input type="checkbox" id="confirm"> I have checked my answers and I am ready to submit.</label></section>
+<div class="actions"><button type="button" id="submit">Submit Answers</button><span id="count" class="count">0 / 60 answers written</span><div id="status" role="status" aria-live="polite"></div></div>
+<p class="small">Please don't close this page until you see the success message. If submission fails, your answers will stay on this page.</p>
+</main><script>
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwDjDGnRNaa54PvDf0UDmfWJTG2H08RXNU5D__E9HoNPyQRW-mRxJHLrla8Jpj7RpA5nQ/exec';
+const HOMEWORK='Question Types and Negatives — Food & Containers';
+const statements=[
+'I am hungry.',
+'The jar of honey is on the table.',
+'There are three cartons of milk in the fridge.',
+'The bottle of juice was empty yesterday.',
+'There were five cans of beans in the cupboard.',
+'You must drink a glass of water every morning.',
+'She can make a delicious fruit salad.',
+'We have got two packets of biscuits.',
+'They go shopping every Saturday.',
+'She sings in the afternoon.',
+'He plays chess every evening.',
+'She bought a loaf of bread.'
+];
+const taskLabels=['Make a general question','Make a subject question','Make a special question (1)','Make a special question (2)','Make a negative sentence'];
+const root=document.getElementById('tasks');
+statements.forEach((s,i)=>{const section=document.createElement('section');section.className='card';const h=document.createElement('h2');h.textContent=`${i+1}. ${s}`;section.appendChild(h);const grid=document.createElement('div');grid.className='answers';for(let j=0;j<5;j++){const row=document.createElement('div');row.className='answer';const label=document.createElement('label');const id=`q_${i+1}_${j+1}`;label.htmlFor=id;label.textContent=`${j+1}.`;label.style.width='auto';label.style.minWidth='205px';label.style.fontWeight='600';label.textContent=taskLabels[j];const input=document.createElement('input');input.id=id;input.name=id;input.type='text';input.maxLength=300;input.autocomplete='off';input.placeholder=j===4?'Write a negative sentence…':'Write a question…';input.setAttribute('aria-label',`${taskLabels[j]} for sentence ${i+1}`);row.append(label,input);grid.appendChild(row)}section.appendChild(grid);root.appendChild(section)});
+const inputs=[...document.querySelectorAll('.answer input')];const status=document.getElementById('status');const btn=document.getElementById('submit');
+function getAnswers(){return statements.map((statement,i)=>({statement,questions:Array.from({length:5},(_,j)=>document.getElementById(`q_${i+1}_${j+1}`).value.trim())}))}
+function updateCount(){document.getElementById('count').textContent=`${inputs.filter(x=>x.value.trim()).length} / 60 answers written`}
+inputs.forEach(x=>x.addEventListener('input',updateCount));
+let submitted=false;
+btn.addEventListener('click',async()=>{if(submitted)return;const student=document.getElementById('student').value.trim();const answers=getAnswers();if(!student){status.className='error';status.textContent='Please enter your name.';document.getElementById('student').focus();return}const missing=answers.findIndex(a=>a.questions.some(q=>!q));if(missing>=0){const field=answers[missing].questions.findIndex(q=>!q);status.className='error';status.textContent=`Please complete “${taskLabels[field]}” for sentence ${missing+1}.`;document.getElementById(`q_${missing+1}_${field+1}`).focus();return}if(!document.getElementById('confirm').checked){status.className='error';status.textContent='Please check the confirmation box.';return}if(!confirm('Send your answers to your teacher?'))return;
+btn.disabled=true;status.className='';status.textContent='Sending your answers…';
+const payload={student,homework:HOMEWORK,answers:JSON.stringify(answers),submission_type:'written_answers',score:0,total:1};
+try{
+// Apps Script cross-origin POST: URL-encoded simple request. Apps Script must be deployed as accessible Web App.
+const data=new URLSearchParams(payload);
+await fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:data});
+// Opaque responses cannot confirm a spreadsheet write. Show an honest status, not a verified success.
+submitted=true;status.className='ok';status.textContent='Submission sent. Ask your teacher to confirm it appeared in the Written Answers sheet.';btn.textContent='Submitted';
+}catch(err){btn.disabled=false;status.className='error';status.textContent='Could not send your answers. Check your internet connection and try again.';}
+});
+</script></body></html>
