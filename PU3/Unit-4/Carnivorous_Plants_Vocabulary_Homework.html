@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Carnivorous Plants — Vocabulary Homework</title>
+<style>
+:root{--green:#21664b;--mint:#eaf6ed;--ink:#243b32;--muted:#5d7569;--line:#d8e7db;--pink:#fff0ea}*{box-sizing:border-box}body{margin:0;background:#f1f8f2;color:var(--ink);font:16px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif}.wrap{max-width:880px;margin:auto;padding:18px 14px 70px}.hero{padding:30px 26px;border-radius:24px;color:#fff;background:linear-gradient(120deg,#1d6548,#4b9b6c)}h1{font-size:clamp(27px,5vw,39px);line-height:1.2;margin:6px 0}h2{color:var(--green);font-size:23px;margin:0 0 8px}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;margin:18px 0;box-shadow:0 5px 18px #163f2810}.hint{color:var(--muted);margin:0 0 16px}.bank{background:#fff5d9;border:1px solid #f2e1a8;padding:14px;border-radius:12px;margin:12px 0 18px}.item{padding:11px 0;border-bottom:1px solid #eaf0eb}.item:last-child{border-bottom:0}.item label{display:block;font-weight:550;margin-bottom:6px}.item input{display:block;width:min(100%,360px)}input,textarea{font:inherit;color:var(--ink);border:1.5px solid #b7d0be;border-radius:10px;padding:10px 12px;background:#fff}textarea{width:100%;min-height:90px;resize:vertical}input:focus,textarea:focus{outline:2px solid #8bbd9a}input.correct{background:#eaf8ee;border-color:#4c9a66}input.incorrect{background:#fff1ed;border-color:#dc957e}.feedback{font-size:14px;margin-top:5px}.feedback.ok{color:#237b48}.feedback.no{color:#aa4934}.sub{font-weight:700;color:#2d7754;margin:22px 0 8px}.tag{display:inline-block;border-radius:20px;padding:4px 11px;background:#ffffff35;font-size:13px}button{border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}button.primary{background:var(--green);color:white}button.secondary{background:#e0eee4;color:var(--green)}button:disabled{opacity:.55;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.result{display:none;margin-top:14px;padding:15px;border-radius:12px;background:var(--mint)}.result.show{display:block}.note{font-size:14px;color:var(--muted)}.submission{background:#fffdf5;border:2px solid #dce8c7}.submission>label{display:block;font-weight:700;margin:10px 0 6px}.submission #student{width:min(100%,430px)}.confirm{display:flex;gap:10px;align-items:flex-start;margin:16px 0}.confirm input{margin-top:6px}.creative{background:#f2f8f3;border-radius:12px;padding:13px;margin:12px 0}.steps{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.steps span{background:#ffffff35;padding:5px 10px;border-radius:30px;font-size:13px}@media(max-width:550px){.card{padding:16px}.hero{padding:24px 19px}}@media print{button,.submission{display:none}.card{break-inside:avoid;box-shadow:none}}
+</style></head><body><main class="wrap"><header class="hero"><span class="tag">🌿 English homework · Unit 4</span><h1>Carnivorous Plants</h1><p>Vocabulary Lab: From words to your own plant!</p><div class="steps"><span>1 · Remember</span><span>2 · Build</span><span>3 · Describe</span><span>4 · Create</span></div></header>
+<section class="card" style="background:#fffdf5"><h2>👩‍🎓 Student details</h2><label for="student" style="display:block;font-weight:700;margin-bottom:8px">Your first name and surname</label><input id="student" maxlength="80" autocomplete="name" placeholder="Write your name" style="width:min(100%,430px)"></section>
+<section class="card"><h2>1. 🌱 Complete the Chunks</h2><p class="hint">Write ONE missing word in each gap. Use the word bank. Each word is used once.</p><div class="bank"><b>Word bank:</b> glue-like · flowers · stuck · scent · tiny · drops · wraps · substance · traps · glistening · lands · hairs</div><div id="task1"></div></section>
+<section class="card"><h2>2. 🔎 Build the Description</h2><p class="hint">Complete each sentence with the missing word or words. Think about the plants you studied.</p><div id="task2"></div></section>
+<section class="card"><h2>3. 🪴 Describe the Trap</h2><p class="hint">Complete each description with ONE missing word. Read the whole sentence for clues.</p><div id="task3"></div></section>
+<section class="card"><h2>4. ✏️ Write Like a Plant Expert</h2><p class="hint">Write full sentences. Your teacher will read these answers — they are not automatically graded.</p><div id="writing"></div></section>
+<section class="card"><h2>🧪 Check Your Work</h2><p class="hint">Check your 24 short answers. You can correct mistakes and check again before submitting.</p><div class="actions"><button class="primary" id="check" type="button">✓ Check answers</button><button class="secondary" id="reset" type="button">↻ Clear my answers</button></div><div id="result" class="result" aria-live="polite"></div></section>
+<section class="card submission"><h2>📩 Send to Your Teacher</h2><p class="hint">Your teacher will receive your score out of 24 and all six written answers.</p><label class="confirm"><input id="confirm" type="checkbox"><span>I have checked my work and I am ready to send it.</span></label><button class="primary" id="submit" type="button">📨 Submit homework</button><div id="status" class="result" role="status" aria-live="polite"></div><p class="note">Please submit only once. A sent request does not guarantee that your teacher's sheet received it; your teacher can confirm.</p></section></main>
+<script>
+'use strict';
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwDjDGnRNaa54PvDf0UDmfWJTG2H08RXNU5D__E9HoNPyQRW-mRxJHLrla8Jpj7RpA5nQ/exec';
+const HOMEWORK='PU3 Unit 4 — Carnivorous Plants Vocabulary';
+const task1=[
+['The plant attracts insects with a sweet ______.','scent'],
+['Insects touch the sticky ______.','hairs'],
+['Its leaves are covered in a sticky ______.','substance'],
+['A sundew has bright, ______ hairs.','glistening'],
+['The leaf slowly ______ around the insect.','wraps'],
+['The plant has beautiful, colourful ______.','flowers'],
+['An insect ______ on the leaf.','lands'],
+['The insects get ______ and cannot move.','stuck'],
+['There are ______ sticky hairs on its leaves.','tiny'],
+['The plant ______ insects with sticky leaves.','traps'],
+['The sticky drops look like dew ______.','drops'],
+['The leaves are sticky and ______.','glue-like']];
+const task2=[
+['A Venus flytrap has tiny teeth along the ______.','edges'],
+['When an insect touches the trap, the jaws snap ______.','shut'],
+['A pitcher plant has ______ walls, so insects cannot climb out.','slippery'],
+['A pitcher plant looks like a tall, tube-shaped ______.','container'],
+['The sundew has bright, glistening ______ on its leaves.','hairs'],
+['The butterwort traps insects with ______ leaves.','sticky']];
+const task3=[
+['The Venus flytrap closes its ______ around an insect.','jaws'],
+['An insect falls ______ the pitcher plant’s tube.','into'],
+['A sundew slowly ______ around the trapped insect.','wraps'],
+['A butterwort has sticky, glue-like ______.','leaves'],
+['The sundew’s sticky drops look like ______ drops.','dew'],
+['The plants catch insects to get extra ______.','nutrients']];
+const questions=[
+['Venus flytrap','Describe what a Venus flytrap looks like and how it catches insects. Write 2–3 sentences.'],
+['Pitcher plant','Describe what a pitcher plant looks like and how it catches insects. Write 2–3 sentences.'],
+['Sundew','Describe what a sundew looks like and how it catches insects. Write 2–3 sentences.'],
+['Butterwort','Describe what a butterwort looks like and how it catches insects. Write 2–3 sentences.'],
+['Compare two plants','Choose TWO of the four plants. How are their traps different? Write 2–3 sentences.'],
+['Plant expert challenge','Which of the FOUR plants has the most interesting trap? Explain why and use at least TWO vocabulary chunks.']];
+const all=[...task1,...task2,...task3];
+function render(group,id,offset){document.getElementById(id).innerHTML=group.map(([sentence],i)=>`<div class="item"><label for="a${offset+i}">${offset+i+1}. ${sentence}</label><input id="a${offset+i}" data-answer="${offset+i}" type="text" autocomplete="off" spellcheck="false" aria-label="Answer ${offset+i+1}"><div id="f${offset+i}" class="feedback" aria-live="polite"></div></div>`).join('')}
+render(task1,'task1',0);render(task2,'task2',12);render(task3,'task3',18);
+document.getElementById('writing').innerHTML=questions.map(([label,prompt],i)=>`<div class="creative"><label for="w${i}"><b>${i+1}. ${label}</b></label><p class="hint">${prompt}</p><textarea id="w${i}" maxlength="4500" placeholder="Write your answer here…"></textarea></div>`).join('');
+let lastScore=null,submitted=false,sending=false;
+const normalize=s=>s.toLowerCase().trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+function invalidate(){lastScore=null;document.getElementById('result').classList.remove('show');document.querySelectorAll('input[data-answer]').forEach(el=>{el.classList.remove('correct','incorrect');document.getElementById('f'+el.dataset.answer).textContent=''})}
+document.querySelectorAll('input[data-answer]').forEach(el=>el.addEventListener('input',invalidate));
+document.getElementById('check').addEventListener('click',()=>{let score=0;all.forEach(([_,correct],i)=>{const el=document.getElementById('a'+i),ok=normalize(el.value)===normalize(correct),f=document.getElementById('f'+i);if(ok)score++;el.classList.toggle('correct',ok);el.classList.toggle('incorrect',!ok);f.textContent=ok?'✓ Correct':'Try again!';f.className='feedback '+(ok?'ok':'no')});lastScore=score;const result=document.getElementById('result');result.innerHTML=`<b>Your score: ${score}/24</b><p>${score===24?'Excellent! All short answers are correct.':'Review the highlighted answers and try again. You can submit even if some answers are incorrect.'}</p><p class="note">Your six longer answers will be checked by your teacher.</p>`;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'})});
+document.getElementById('reset').addEventListener('click',()=>{if(submitted){alert('This homework has already been sent.');return}if(!confirm('Clear all your answers?'))return;document.querySelectorAll('input[data-answer],textarea').forEach(el=>el.value='');document.getElementById('confirm').checked=false;invalidate();window.scrollTo({top:0,behavior:'smooth'})});
+function status(msg){const el=document.getElementById('status');el.textContent=msg;el.classList.add('show')}
+document.getElementById('submit').addEventListener('click',async()=>{if(submitted||sending)return;const student=document.getElementById('student').value.trim();if(!student){status('Please enter your first name and surname.');return}if(lastScore===null){status('Please click Check answers first.');return}const writing=questions.map(([label],i)=>({label,answer:document.getElementById('w'+i).value.trim()}));if(writing.some(x=>x.answer.length<15)){status('Please write an answer of at least 15 characters for each of the six writing questions.');return}if(!document.getElementById('confirm').checked){status('Please tick the confirmation box.');return}if(!confirm('Send your score and all six written answers to your teacher?'))return;sending=true;const button=document.getElementById('submit');button.disabled=true;status('Sending your work…');try{const payload=new URLSearchParams({student,homework:HOMEWORK,submission_type:'mixed_homework',score:String(lastScore),total:'24',answers:JSON.stringify(writing)});await fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:payload});submitted=true;status('Your submission request was sent. Please ask your teacher to confirm it appears in Google Sheets.');document.querySelectorAll('input,textarea').forEach(el=>el.disabled=true);document.getElementById('check').disabled=true;document.getElementById('reset').disabled=true;button.textContent='✓ Request sent'}catch(e){status('Could not send your homework. Check your internet connection and try again.');button.disabled=false}finally{sending=false}});
+</script></body></html>
